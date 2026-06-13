@@ -124,6 +124,94 @@ Interface              IP-Address      OK? Method Status Protocol
 FastEthernet0/1        unassigned      YES manual up     up
 Vlan1                  192.168.1.1     YES manual up     up
 
+15. switchport mode access
+Purpose:
+Configures a switch port as an Access Port, allowing it to carry traffic for only one VLAN. Access ports are typically connected to end devices such as PCs, printers, and servers.
+Example:
+S1(config)# interface fastethernet 0/1
+S1(config-if)# switchport mode access
+
+Common Uses:
+Connecting PCs and other end devices
+Assigning ports to a single VLAN
+Preventing dynamic trunk negotiation
+
+16. switchport mode trunk
+Purpose:
+Configures a switch port as a Trunk Port, allowing it to carry traffic from multiple VLANs between switches, routers, or other network devices.
+Example:
+S1(config)# interface fastethernet 0/24
+S1(config-if)# switchport mode trunk
+
+Common Uses:
+Connecting switches together
+Carrying multiple VLANs over a single link
+Supporting VLAN communication across the network
+
+17. switchport trunk encapsulation dot1q
+Purpose:
+Sets the trunking encapsulation method to IEEE 802.1Q (Dot1Q). This protocol adds VLAN tags to Ethernet frames so multiple VLANs can traverse a trunk link.
+Example:
+S1(config)# interface fastethernet 0/24
+S1(config-if)# switchport trunk encapsulation dot1q
+
+Note:
+Available only on certain Cisco switch models.
+Some switches support only 802.1Q and do not require this command.
+Common Uses:
+Configuring VLAN trunk links
+Inter-switch communication
+Router-on-a-Stick implementations
+
+18. encapsulation dot1q vlan <VLAN_ID>
+Purpose:
+Configures a router subinterface to use 802.1Q VLAN tagging, allowing the router to communicate with a specific VLAN. This command is commonly used in Router-on-a-Stick configurations.
+Example:
+R1(config)# interface gigabitethernet 0/0.10
+R1(config-subif)# encapsulation dot1q 10
+
+Common Uses:
+Inter-VLAN Routing
+Router-on-a-Stick configurations
+Connecting multiple VLANs through a single router interface
+Sample Configuration:
+R1(config)# interface gigabitethernet 0/0.10
+R1(config-subif)# encapsulation dot1q 10
+R1(config-subif)# ip address 192.168.10.1 255.255.255.0
+
+R1(config)# interface gigabitethernet 0/0.20
+R1(config-subif)# encapsulation dot1q 20
+R1(config-subif)# ip address 192.168.20.1 255.255.255.0
+
+
+VLAN Configuration Example
+enable
+configure terminal
+
+interface fastethernet 0/1
+switchport mode access
+
+interface fastethernet 0/24
+switchport trunk encapsulation dot1q
+switchport mode trunk
+
+exit
+
+Router-on-a-Stick Example
+enable
+configure terminal
+
+interface gigabitethernet 0/0.10
+encapsulation dot1q 10
+ip address 192.168.10.1 255.255.255.0
+
+interface gigabitethernet 0/0.20
+encapsulation dot1q 20
+ip address 192.168.20.1 255.255.255.0
+
+These commands are commonly used when configuring VLANs, trunk links, and Inter-VLAN Routing in Cisco Packet Tracer labs.
+
+
 Status Indicators:
 up/up – Interface is operational.
 down/down – Interface is inactive or disconnected.
