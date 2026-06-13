@@ -239,5 +239,5 @@ show cdp neighbors
 show running-config
 show ip interface brief
 
-These commands are commonly used after configuration to verify device settings, identify neighboring Cisco devices, and check the operational status of network interfaces.
+These commands are commonly used after configuration to verify device settings, identify neighboring Cisco devices, and check the operational status of network interfaces..
 
